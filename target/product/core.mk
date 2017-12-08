@@ -24,7 +24,6 @@ PRODUCT_PACKAGES += \
     BasicDreams \
     BlockedNumberProvider \
     BookmarkProvider \
-    Browser2 \
     BuiltInPrintService \
     Calendar \
     CalendarProvider \
@@ -34,14 +33,13 @@ PRODUCT_PACKAGES += \
     DeskClock \
     DocumentsUI \
     DownloadProviderUi \
-    Email \
     ExactCalculator \
     ExternalStorageProvider \
     FusedLocation \
     InputDevices \
     KeyChain \
     Keyguard \
-    Launcher2 \
+    Launcher3 \
     ManagedProvisioning \
     MtpDocumentsProvider \
     PicoTts \
@@ -50,7 +48,6 @@ PRODUCT_PACKAGES += \
     PrintSpooler \
     PrintRecommendationService \
     ProxyHandler \
-    QuickSearchBox \
     Settings \
     SharedStorageBackup \
     StorageManager \
