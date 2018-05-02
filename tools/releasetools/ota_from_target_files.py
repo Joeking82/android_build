@@ -497,18 +497,45 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   system_progress = 0.75
 
-  script.Print("**************************************************");
-  script.Print(" ____    ________   _____   ____    ____          ");
-  script.Print("/\\  _`\\ /\\_____  \\ /\\  __`\\/\\  _`\\ /\\  _`\\         ");
-  script.Print("\\ \\ \\L\\_\\/____//'/'\\ \\ \\/\\ \\ \\,\\L\\_\\ \\ \\L\\\\");
-  script.Print(" \\ \\ \\L_L    //'/'  \\ \\ \\ \\ \\/_\\__ \\ \\ ,__/       ");
-  script.Print("  \\ \\ \\/, \\ //'/'___ \\ \\ \\_\\ \\/\\ \\L\\ \\ \\ \\/   ");
-  script.Print("   \\ \\____/ /\\_______\\\\ \\_____\\ `\\____\\ \\_\\       ");
-  script.Print("    \\/___/  \\/_______/ \\/_____/\\/_____/\\/_/   ");
-  script.Print("                                                   ");
-  script.Print("                  AOSP Oreo                        ");
-  script.Print("          A Ground Zero Roms Project               ");
-  script.Print("***************************************************");
+  script.Print("******************************************");
+  script.Print("*                                        *");
+  script.Print("*  ______                  ____  ____    *");
+  script.Print("* /_  __/__ __ ____ ______/ __ \/ __/    *");
+  script.Print("*  / / / _ \\ \ / // / __/ /_/ /\ \      *");
+  script.Print("* /_/  \___/_\_\\_, /\__/\____/___/      *");
+  script.Print("*    Addicted /___/ to the new toxyc.    *");
+  script.Print("*                                        *");
+  script.Print("******************************************");
+  if GetBuildProp("ro.modversion", OPTIONS.info_dict) is not None:
+    buildid = GetBuildProp("ro.modversion", OPTIONS.info_dict)
+    buildidn = GetBuildProp("ro.build.id", OPTIONS.info_dict)
+    buildday = GetBuildProp("ro.build.date", OPTIONS.info_dict)
+    securep = GetBuildProp("ro.build.version.security_patch", OPTIONS.info_dict)
+    density = GetBuildProp("ro.sf.lcd_density", OPTIONS.info_dict,False)
+    device = GetBuildProp("ro.product.device", OPTIONS.info_dict)
+    androidver = GetBuildProp("ro.build.version.release", OPTIONS.info_dict)
+    manufacturer = GetBuildProp("ro.product.manufacturer", OPTIONS.info_dict)
+    sdkver = GetBuildProp("ro.build.version.sdk", OPTIONS.info_dict)
+    script.Print(" *************** Software ****************");
+    script.Print(" OS version: %s"%(buildid));
+    script.Print("");
+    script.Print(" Android version: %s"%(androidver));
+    script.Print("");
+    script.Print(" Security patch: %s"%(securep));
+    script.Print("");
+    script.Print(" SDK version: %s"%(sdkver));
+    script.Print("");
+    script.Print(" Build ID: %s"%(buildidn));
+    script.Print("");
+    script.Print(" Build date: %s"%(buildday));
+    script.Print(" *************** Hardware ****************");
+    script.Print(" Device codename: %s"%(device));
+    script.Print("");
+    script.Print(" Manufacturer: %s"%(manufacturer));
+    script.Print("");
+    script.Print(" LCD density: %s"%(density));
+    script.Print("");
+    script.Print(" *****************************************");
 
   if OPTIONS.wipe_user_data:
     system_progress -= 0.1
@@ -607,12 +634,15 @@ def WriteMetadata(metadata, output_zip):
                      compress_type=zipfile.ZIP_STORED)
 
 
-def GetBuildProp(prop, info_dict):
+def GetBuildProp(prop, info_dict, raise_error=True):
   """Return the fingerprint of the build of a given target-files info_dict."""
   try:
     return info_dict.get("build.prop", {})[prop]
   except KeyError:
-    raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
+    if raise_error:
+      raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
+    else:
+      return "Unknow"
 
 
 def HandleDowngradeMetadata(metadata):
