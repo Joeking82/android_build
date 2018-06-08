@@ -2800,9 +2800,10 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 
 TOXYC_TARGET_PACKAGE := $(PRODUCT_OUT)/$(TOXYC_VERSION).zip
 
-.PHONY: otapackage bacon
+.PHONY: otapackage bacon toxyc
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-bacon: otapackage
+bacon: toxyc
+toxyc: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(TOXYC_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(TOXYC_TARGET_PACKAGE) > $(TOXYC_TARGET_PACKAGE).md5sum
 	@echo -e ${CL_CYN}""${CL_CYN}
